@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#b94f79">
+<title>فروشگاه لوازم آرایشی ژیکان | ZHIKAN</title>
+<style>
+:root{--pink:#b94f79;--pink2:#f8e5ed;--gold:#c69b43;--ink:#30242a;--muted:#766a70;--bg:#fff9fb}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(120deg,#7d294b,#c96f91);color:white;padding:22px 16px 18px;text-align:center}
+.logo{font-size:30px;font-weight:900;letter-spacing:2px}.sub{margin-top:7px;font-size:14px}
+nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+nav a{color:#fff;text-decoration:none;border:1px solid #ffffff80;border-radius:22px;padding:8px 13px;font-size:13px}
+.hero{max-width:1050px;margin:20px auto;padding:24px 18px;background:linear-gradient(120deg,#f9e5ed,#fff3dc);border-radius:20px;text-align:center}
+.hero h1{margin:0 0 10px;font-size:23px;color:#792d4d}.hero p{margin:0;color:#66545c;line-height:1.9}
+.wrap{max-width:1050px;margin:24px auto;padding:0 14px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2{font-size:20px;margin:0 0 14px}.hint{font-size:12px;color:var(--muted)}
+.tools{display:flex;gap:9px;margin:14px 0;flex-wrap:wrap}
+input,select,textarea{font:inherit;border:1px solid #e6ccd6;border-radius:12px;padding:11px;background:white;min-width:0}
+#search{flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px}
+.card{background:white;border:1px solid #f0dce4;border-radius:16px;padding:12px;box-shadow:0 5px 18px #7d294b0b}
+.pic{height:125px;border-radius:12px;background:linear-gradient(135deg,#f7dce7,#fff0d3);display:grid;place-items:center;font-size:48px}
+.card h3{font-size:15px;margin:10px 0 6px}.card p{font-size:12px;color:var(--muted);min-height:34px;line-height:1.7;margin:0 0 8px}
+.price{font-size:12px;color:#8c3b5b;font-weight:bold;margin-bottom:10px}
+button{border:0;border-radius:12px;padding:11px 14px;background:var(--pink);color:white;font:inherit;cursor:pointer}
+button.secondary{background:#f4e4eb;color:#7d294b}button:disabled{opacity:.45}
+.cartbox,.orderbox{background:white;border:1px solid #f0dce4;border-radius:18px;padding:16px;margin-top:22px}
+.cart-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #f3e8ed;padding:10px 0;font-size:13px}
+.qty{display:flex;align-items:center;gap:7px}.qty button{padding:5px 10px}
+.total{font-weight:bold;margin:14px 0;color:#7d294b}
+form{display:grid;gap:10px}form input,form textarea{width:100%}textarea{min-height:75px;resize:vertical}
+.note{font-size:12px;line-height:1.9;color:var(--muted);background:#fff6e8;border-radius:12px;padding:12px}
+footer{text-align:center;padding:25px 14px;color:#766a70;font-size:13px;line-height:2}
+a{color:#9b3c62} .empty{color:#8b7d83;font-size:13px}
+@media(min-width:700px){.hero{padding:38px}.hero h1{font-size:30px}.pic{height:155px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ZHIKAN ژیکان</div>
+  <div class="sub">فروشگاه آنلاین لوازم آرایشی و محصولات زیبایی</div>
+  <nav><a href="#products">محصولات</a><a href="#cart">سبد خرید</a><a href="#contact">ارتباط با ما</a></nav>
+</header>
+<section class="hero">
+  <h1>زیبایی از ژیکان شروع می‌شود 💗</h1>
+  <p>محصولات موردعلاقه‌ات را به سبد خرید اضافه کن و سفارشت را ثبت کن.<br>قیمت و موجودی هر کالا پیش از پرداخت توسط ادمین تأیید می‌شود.</p>
+</section>
+<main class="wrap">
+  <section id="products">
+    <div class="section-title"><h2>محصولات فروشگاه</h2><span class="hint">قیمت‌ها پس از استعلام اعلام می‌شوند</span></div>
+    <div class="tools">
+      <input id="search" type="search" placeholder="جست‌وجوی محصول...">
+      <select id="category"><option value="all">همه دسته‌ها</option><option>آرایش صورت</option><option>آرایش چشم</option><option>آرایش لب</option><option>مراقبت پوست</option></select>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </section>
+  <section class="cartbox" id="cart">
+    <div class="section-title"><h2>🛍️ سبد خرید</h2><button class="secondary" id="clearCart" type="button">خالی کردن سبد</button></div>
+    <div id="cartItems"><p class="empty">هنوز محصولی انتخاب نکرده‌اید.</p></div>
+    <div class="total" id="total">مبلغ نهایی پس از تأیید قیمت مشخص می‌شود.</div>
+  </section>
+  <section class="orderbox">
+    <h2>ثبت درخواست سفارش</h2>
+    <p class="hint">بعد از ارسال درخواست، ادمین قیمت روز و موجودی را بررسی می‌کند و برای هماهنگی پرداخت با شما تماس می‌گیرد.</p>
+    <form id="orderForm">
+      <input id="customer" required maxlength="70" placeholder="نام و نام خانوادگی">
+      <input id="phone" required inputmode="tel" maxlength="20" placeholder="شماره تماس شما">
+      <textarea id="address" required maxlength="350" placeholder="آدرس یا توضیحات سفارش"></textarea>
+      <button id="submitOrder" type="submit">ارسال درخواست سفارش در واتساپ</button>
+    </form>
+    <p class="note">توجه: این نسخه اولیه است. هیچ مبلغی به‌صورت خودکار دریافت نمی‌شود و سفارش تا زمان تأیید قیمت و موجودی توسط ادمین قطعی نیست.</p>
+  </section>
+  <section id="contact" class="orderbox">
+    <h2>ارتباط با ژیکان</h2>
+    <p>📞 تماس: <a href="tel:09368872469">09368872469</a></p>
+    <p>👤 ادمین: <a href="https://rubika.ir/arzansarezhikan_admin">@arzansarezhikan_admin</a></p>
+    <p>📢 کانال روبیکا: <a href="https://rubika.ir/arzansarezhikan">@arzansarezhikan</a></p>
+  </section>
+</main>
+<footer>💗 ژیکان؛ انتخاب زیبایی شماست 💗<br>تمام حقوق این فروشگاه محفوظ است.</footer>
+<script>
+const products=[
+{id:1,name:"رژ لب",cat:"آرایش لب",emoji:"💄",desc:"رنگ‌بندی متنوع؛ موجودی و قیمت با استعلام"},
+{id:2,name:"ریمل",cat:"آرایش چشم",emoji:"🖤",desc:"برای آرایش چشم؛ مدل با استعلام"},
+{id:3,name:"کرم‌پودر",cat:"آرایش صورت",emoji:"🧴",desc:"انتخاب رنگ متناسب؛ موجودی با استعلام"},
+{id:4,name:"رژگونه",cat:"آرایش صورت",emoji:"🌸",desc:"رنگ‌های متنوع؛ قیمت روز با استعلام"},
+{id:5,name:"خط چشم",cat:"آرایش چشم",emoji:"🖌️",desc:"مدل‌های مختلف؛ موجودی با استعلام"},
+{id:6,name:"ماسک صورت",cat:"مراقبت پوست",emoji:"🧖",desc:"محصولات مراقبتی؛ مشخصات با استعلام"}
+];
+let cart={};
+const grid=document.getElementById('productGrid');
+function renderProducts(){
+ const q=document.getElementById('search').value.trim().toLowerCase(),cat=document.getElementById('category').value;
+ const list=products.filter(p=>(cat==='all'||p.cat===cat)&&(p.name.toLowerCase().includes(q)||p.cat.includes(q)));
+ grid.innerHTML=list.map(p=>`<article class="card"><div class="pic">${p.emoji}</div><h3>${p.name}</h3><p>${p.desc}</p><div class="price">قیمت: استعلام از ادمین</div><button type="button" onclick="addToCart(${p.id})">افزودن به سبد خرید</button></article>`).join('')||'<p class="empty">محصولی پیدا نشد.</p>';
+}
+function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart()}
+function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
+function renderCart(){
+ const ids=Object.keys(cart),box=document.getElementById('cartItems');
+ if(!ids.length){box.innerHTML='<p class="empty">هنوز محصولی انتخاب نکرده‌اید.</p>'}
+ else{box.innerHTML=ids.map(id=>{const p=products.find(x=>x.id==id);return `<div class="cart-row"><span>${p.emoji} ${p.name}</span><div class="qty"><button type="button" onclick="changeQty(${id},-1)">−</button><b>${cart[id]}</b><button type="button" onclick="changeQty(${id},1)">+</button></div></div>`}).join('')}
+ document.getElementById('total').textContent=ids.length?'جمع مبلغ پس از تأیید قیمت روز توسط ادمین اعلام می‌شود.':'مبلغ نهایی پس از تأیید قیمت مشخص می‌شود.';
+}
+document.getElementById('search').addEventListener('input',renderProducts);
+document.getElementById('category').addEventListener('change',renderProducts);
+document.getElementById('clearCart').addEventListener('click',()=>{cart={};renderCart()});
+document.getElementById('orderForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!Object.keys(cart).length){alert('لطفاً ابتدا حداقل یک محصول به سبد خرید اضافه کنید.');return}
+ const items=Object.keys(cart).map(id=>{const p=products.find(x=>x.id==id);return `- ${p.name} × ${cart[id]}`}).join('\n');
+ const msg=`سلام، برای ثبت سفارش از فروشگاه ژیکان پیام می‌دهم.\n\nمحصولات:\n${items}\n\nنام: ${document.getElementById('customer').value}\nشماره تماس: ${document.getElementById('phone').value}\nآدرس/توضیحات: ${document.getElementById('address').value}\n\nلطفاً قیمت روز و موجودی را تأیید کنید و روش پرداخت را اعلام بفرمایید.`;
+ window.open('https://wa.me/989368872469?text='+encodeURIComponent(msg),'_blank');
+});
+renderProducts();renderCart();
+</script>
+</body>
+      </html>
