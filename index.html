@@ -115,6 +115,142 @@ document.getElementById('orderForm').addEventListener('submit',e=>{
  window.open('https://wa.me/989368872469?text='+encodeURIComponent(msg),'_blank');
 });
 renderProducts();renderCart();
+// پنل مدیریت ژیکان
+const zhikanAdminPassword = "2772191367Zj";
+const zhikanStorageKey = "zhikanProductsV1";
+
+// بازیابی محصولات ذخیره‌شده
+try {
+  const savedProducts = localStorage.getItem(zhikanStorageKey);
+  if (savedProducts) {
+    products.splice(0, products.length, ...JSON.parse(savedProducts));
+    renderProducts();
+    renderCart();
+  }
+} catch (e) {
+  console.log("خطا در بازیابی محصولات");
+}
+
+function saveZhikanProducts() {
+  localStorage.setItem(zhikanStorageKey, JSON.stringify(products));
+}
+
+const adminButton = document.createElement("button");
+adminButton.textContent = "🔐 ورود مدیر";
+adminButton.style.cssText =
+  "position:fixed;bottom:15px;right:15px;z-index:99999;background:#d8b35a;color:#222;border:0;padding:13px 20px;border-radius:12px;font-weight:bold;";
+document.body.appendChild(adminButton);
+
+adminButton.onclick = function () {
+  const password = prompt("رمز مدیر را وارد کنید:");
+  if (password !== zhikanAdminPassword) {
+    alert("رمز اشتباه است!");
+    return;
+  }
+
+  const choice = prompt(
+    "پنل مدیریت ژیکان\n\n1 - افزودن محصول\n2 - ویرایش محصول\n3 - حذف محصول\n4 - مشاهده محصولات"
+  );
+
+  if (choice === "1") {
+    const name = prompt("نام محصول:");
+    if (!name) return;
+
+    const cat = prompt("دسته‌بندی محصول:");
+    const emoji = prompt("ایموجی محصول (مثلاً 💄):") || "🛍️";
+    const desc = prompt("توضیحات محصول:") || "";
+
+    products.push({
+      id: Date.now(),
+      name: name,
+      cat: cat || "عمومی",
+      emoji: emoji,
+      desc: desc
+    });
+
+    saveZhikanProducts();
+    renderProducts();
+    alert("محصول اضافه شد!");
+  }
+
+  else if (choice === "2") {
+    const list = products.map((p, i) => (i + 1) + " - " + p.name).join("\n");
+    const number = Number(prompt("شماره محصول برای ویرایش:\n" + list));
+    const p = products[number - 1];
+
+    if (!p) return alert("شماره اشتباه است!");
+
+    p.name = prompt("نام جدید:", p.name) || p.name;
+    p.cat = prompt("دسته‌بندی جدید:", p.cat) || p.cat;
+    p.emoji = prompt("ایموجی جدید:", p.emoji) || p.emoji;
+    p.desc = prompt("توضیحات جدید:", p.desc) ?? p.desc;
+
+    saveZhikanProducts();
+    renderProducts();
+    alert("محصول ویرایش شد!");
+  }
+
+  else if (choice === "3") {
+    const list = products.map((p, i) => (i + 1) + " - " + p.name).join("\n");
+    const number = Number(prompt("شماره محصول برای حذف:\n" + list));
+
+    if (!products[number - 1]) return alert("شماره اشتباه است!");
+    if (confirm("این محصول حذف شود؟")) {
+      products.splice(number - 1, 1);
+      saveZhikanProducts();
+      renderProducts();
+      renderCart();
+      alert("محصول حذف شد!");
+    }
+  }
+
+  else if (choice === "4") {
+    alert(products.map((p, i) => (i + 1) + " - " + p.name).join("\n"));
+  }
+};
+else if (choice === "2") {
+    const list = products.map((p, i) => ${i + 1} - ${p.name}).join("\n");
+    const n = Number(prompt("شماره محصول:\n" + list));
+    const p = products[n - 1];
+    if (!p) return alert("شماره اشتباه است!");
+
+    p.name = prompt("نام جدید:", p.name) || p.name;
+    p.cat = prompt("دسته‌بندی:", p.cat) || p.cat;
+    p.desc = prompt("توضیحات:", p.desc) ?? p.desc;
+
+    const save = () => {
+      saveZhikanProducts();
+      renderProducts();
+      renderCart();
+      alert("محصول ویرایش شد!");
+    };
+
+    if (confirm("عکس جدید انتخاب می‌کنی؟")) {
+      chooseZhikanPhoto(photo => {
+        p.image = photo;
+        save();
+      });
+    } else {
+      save();
+    }
+  }
+
+  else if (choice === "3") {
+    const list = products.map((p, i) => ${i + 1} - ${p.name}).join("\n");
+    const n = Number(prompt("شماره محصول برای حذف:\n" + list));
+    if (!products[n - 1]) return alert("شماره اشتباه است!");
+
+    if (confirm("محصول حذف شود؟")) {
+      products.splice(n - 1, 1);
+      saveZhikanProducts();
+      renderProducts();
+      renderCart();
+    }
+  }
+};
+
+renderProducts();
+renderCart();
 </script>
 </body>
       </html>
